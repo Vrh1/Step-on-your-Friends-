@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://do68t7pxqy4a0"]
+
+[node name="Player" type="CharacterBody2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+
+[node name="RayCasts" type="Node2D" parent="."]
