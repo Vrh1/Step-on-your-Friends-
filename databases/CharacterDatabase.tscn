@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2oodbiewsmc3"]
+
+[ext_resource type="Script" path="res://databases/CharacterDatabase.gd" id="1_wk1ey"]
+[ext_resource type="PackedScene" uid="uid://do68t7pxqy4a0" path="res://objects scenes/player/player.tscn" id="2_n502d"]
+[ext_resource type="Script" path="res://scripts_match/resources/CharacterDefinition.gd" id="3_fkq6a"]
+
+[sub_resource type="Resource" id="Resource_ooypt"]
+script = ExtResource("3_fkq6a")
+name = "Elf"
+character_scene = ExtResource("2_n502d")
+
+[node name="CharacterDatabase" type="Node"]
+script = ExtResource("1_wk1ey")
+playable_characters = {
+"elf": SubResource("Resource_ooypt")
+}
