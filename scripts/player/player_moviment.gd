@@ -1,6 +1,11 @@
 extends CharacterBody2D
 class_name Player
 
+# Scripts filhos / Objetos filhos.
+@export var animations: PlayerAnimations = null
+@export var collision: CollisionShape2D = null
+@export var hurtbox: Area2D = null
+
 # Variáveis para gravidade
 @export_category("Gravity")
 @export var gravity: float = 250.0
@@ -26,14 +31,14 @@ var can_jump: bool = false
 var default_speed: float = speed
 var direction: float = 0
 var fire_pressed: bool = false
+var is_dead: bool = true
 
 
 # Physics, função de atualização a cada frame.
 func _physics_process(delta) -> void:
-	move(delta)
 	apply_gravity(delta)
+	move(delta)
 	move_and_slide()
-	print(jump_timer)
 
 
 # Aplicar gravidade.
@@ -57,6 +62,7 @@ func jump(delta) -> void:
 		jump_timer = 0.0
 		is_jumping = false
 		can_jump = true
+		is_falling = false
 	
 	if Input.is_action_pressed("jump") && can_jump && (jump_timer < max_jump_timer):
 		jump_timer += delta
@@ -64,6 +70,8 @@ func jump(delta) -> void:
 		velocity.y = -jump_force
 	
 	elif Input.is_action_just_released("jump") && is_jumping:
+		is_jumping = false
+		is_falling = true
 		can_jump = false
 
 
