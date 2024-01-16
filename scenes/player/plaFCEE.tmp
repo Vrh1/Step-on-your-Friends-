@@ -180,33 +180,18 @@ position = Vector2(5, 0)
 target_position = Vector2(0, 8.33333)
 collision_mask = 2
 
-[node name="Push" type="RayCast2D" parent="RayCasts"]
+[node name="Front" type="RayCast2D" parent="RayCasts"]
 target_position = Vector2(6.66667, 0)
-collision_mask = 2
 
-[node name="Animations" type="Node" parent="." node_paths=PackedStringArray("player", "animator", "sprite", "push_raycast")]
+[node name="Animations" type="Node" parent="." node_paths=PackedStringArray("player", "animator", "sprite")]
 script = ExtResource("3_nssa8")
 player = NodePath("..")
 animator = NodePath("../Animator")
 sprite = NodePath("../Sprite")
-push_raycast = NodePath("../RayCasts/Push")
 
-[node name="Attacks" type="Node" parent="." node_paths=PackedStringArray("foots", "push_raycast")]
+[node name="Attacks" type="Node" parent="." node_paths=PackedStringArray("foots")]
 script = ExtResource("4_oun7w")
 foots = NodePath("../RayCasts/Foots")
-push_raycast = NodePath("../RayCasts/Push")
-pushback_x = 150.0
-pushback_y = -100.0
 
-[node name="Knockback Timer" type="Timer" parent="Attacks"]
-one_shot = true
-
-[node name="Respawn" type="Node" parent="." node_paths=PackedStringArray("parent", "animations", "raycasts")]
+[node name="Respawn" type="Node" parent="."]
 script = ExtResource("4_xtmy4")
-parent = NodePath("..")
-animations = NodePath("../Animations")
-raycasts = NodePath("../RayCasts")
-
-[node name="Respawn Timer" type="Timer" parent="Respawn"]
-wait_time = 5.0
-one_shot = true

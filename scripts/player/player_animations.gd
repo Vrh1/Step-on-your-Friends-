@@ -10,7 +10,11 @@ class_name PlayerAnimations
 @export var animator: AnimationPlayer = null
 @export var sprite: Sprite2D = null
 
+@export_category("RayCasts")
+@export var push_raycast: RayCast2D = null
 
+
+# Chamada por frame
 func _physics_process(_delta):
 	verify_direction(player.direction)
 	if player.is_on_floor():
@@ -23,21 +27,15 @@ func _physics_process(_delta):
 func verify_direction(direction: float) -> void:
 	if direction > 0:
 		sprite.flip_h = false
+		push_raycast.rotation_degrees = 0
 	if direction < 0:
 		sprite.flip_h = true
+		push_raycast.rotation_degrees = 180
+	
 
 
 # Animar queda e pulo do jogador.
 func anim_air(velocity: float) -> void:
-	#if player.is_jumping:
-		#animator.play("jump")
-		#animator.speed_scale = 2
-		#if player.velocity.y > 0:
-			#animator.play("fall")
-	#
-	#elif player.is_falling:
-		#animator.play("fall")
-		#animator.speed_scale = 1.0
 	if velocity < 0:
 		animator.play("jump")
 		animator.speed_scale = 2

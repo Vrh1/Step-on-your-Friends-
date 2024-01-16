@@ -3,8 +3,9 @@ class_name Player
 
 # Scripts filhos / Objetos filhos.
 @export var animations: PlayerAnimations = null
+@export var attacks: PlayerAttacks = null
+@export var respawn: Respawn = null
 @export var collision: CollisionShape2D = null
-@export var hurtbox: Area2D = null
 
 # Variáveis para gravidade
 @export_category("Gravity")
@@ -21,6 +22,13 @@ class_name Player
 @export var max_jump_timer: float = 0
 @export var jump_force: float = 150
 
+# Variáveis para os inputs de controle
+@export_category("Controls")
+@export var move_right: String = "move_right"
+@export var move_left: String = "move_left"
+@export var move_fire: String = "fire"
+@export var move_jump: String = "jump"
+
 
 # Condições para pulo.
 var is_jumping: bool = false
@@ -31,7 +39,7 @@ var can_jump: bool = false
 var default_speed: float = speed
 var direction: float = 0
 var fire_pressed: bool = false
-var is_dead: bool = true
+var can_move: bool = true
 
 
 # Physics, função de atualização a cada frame.
@@ -49,35 +57,37 @@ func apply_gravity(delta) -> void:
 
 # Função para a movimentação horizontal do player
 func move(delta) -> void:
-	var direction: float = Input.get_axis("move_left", "move_right")
-	velocity.x = speed * direction
-	check_fire_pressed()
-	jump(delta)
-	self.direction = direction
+	if can_move:
+		var direction: float = Input.get_axis(move_left, move_right)
+		velocity.x = speed * direction
+		check_fire_pressed()
+		jump(delta)
+		self.direction = direction
 
 
 # Função para os pulos do player
 func jump(delta) -> void:
+	if velocity.y > 0:
+		can_jump = false
+	
 	if is_on_floor():
 		jump_timer = 0.0
 		is_jumping = false
 		can_jump = true
-		is_falling = false
 	
-	if Input.is_action_pressed("jump") && can_jump && (jump_timer < max_jump_timer):
+	if Input.is_action_pressed(move_jump) && can_jump && (jump_timer < max_jump_timer):
 		jump_timer += delta
 		is_jumping = true
 		velocity.y = -jump_force
 	
-	elif Input.is_action_just_released("jump") && is_jumping:
+	elif Input.is_action_just_released(move_jump) && is_jumping:
 		is_jumping = false
-		is_falling = true
 		can_jump = false
 
 
 # Função para checar quando o botão fire é pressionado e resolver as condições quando possível.
 func check_fire_pressed() -> void:
-	if Input.is_action_pressed("fire"):
+	if Input.is_action_pressed(move_fire):
 		fire_pressed = true
 		if is_on_floor():
 			speed = max_speed

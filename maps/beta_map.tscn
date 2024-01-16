@@ -1,12 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://dw2hecv12jidg"]
+[gd_scene load_steps=4 format=3 uid="uid://dw2hecv12jidg"]
 
 [ext_resource type="PackedScene" uid="uid://ba7y7j61np73k" path="res://maps/tiles/beta_tile_map.tscn" id="1_gfyad"]
-[ext_resource type="PackedScene" uid="uid://do68t7pxqy4a0" path="res://scenes/player/player.tscn" id="2_wxk32"]
+[ext_resource type="PackedScene" uid="uid://byv1x1godddgl" path="res://scenes/player/tests/elfa1.tscn" id="2_3m05h"]
+[ext_resource type="PackedScene" uid="uid://vq5tl7801wme" path="res://scenes/player/tests/elfa2.tscn" id="3_q3bhb"]
 
 [node name="BetaMap" type="Node2D"]
 
 [node name="BetaTileMap" parent="." instance=ExtResource("1_gfyad")]
-layer_0/tile_data = PackedInt32Array(393216, 0, 3, 393217, 65536, 3, 393218, 65536, 3, 393219, 65536, 3, 393220, 65536, 3, 393221, 65536, 2, 393222, 65536, 2, 393223, 65536, 2, 393224, 65536, 3, 393225, 65536, 2, 393226, 65536, 2, 393227, 131072, 2, 327685, 0, 0, 327686, 65536, 0, 327687, 131072, 0, 327691, 131072, 1, 327690, 65536, 1, 327689, 0, 1, 262154, 65536, 0, 262155, 131072, 0, 262153, 262144, 0)
+layer_0/tile_data = PackedInt32Array(393216, 196608, 2, 393217, 65536, 3, 393218, 65536, 3, 393219, 65536, 3, 393220, 65536, 3, 393221, 65536, 2, 393222, 65536, 2, 393223, 65536, 2, 393224, 65536, 3, 393225, 65536, 2, 393226, 65536, 2, 393227, 131072, 2, 327685, 0, 0, 327686, 65536, 0, 327687, 131072, 0, 327691, 131072, 1, 327690, 65536, 1, 327689, 0, 1, 262154, 65536, 0, 262155, 131072, 0, 262153, 262144, 0, 327680, 196608, 0)
 
-[node name="Player" parent="." instance=ExtResource("2_wxk32")]
-position = Vector2(32, 183)
+[node name="Player" parent="." instance=ExtResource("2_3m05h")]
+position = Vector2(68, 182)
+move_right = "p1_move_right"
+move_left = "p1_move_left"
+move_fire = "p1_fire"
+move_jump = "p1_jump"
+
+[node name="Player2" parent="." instance=ExtResource("3_q3bhb")]
+position = Vector2(272, 182)
