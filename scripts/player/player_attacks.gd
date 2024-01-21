@@ -10,6 +10,8 @@ class_name PlayerAttacks
 @export var pushback_y: float = -50
 
 @onready var knockback_temp: Timer = get_node("Knockback Timer")
+@onready var player: Player = get_parent()
+@onready var controller: ControllerPlayer = player.get_parent()
 
 var enemy_push: Player = null
 
@@ -36,10 +38,13 @@ func check_under_foots() -> void:
 # Passar a morte e o objeto que morreu
 func stomp(victim: Player) -> void:
 	# 2 jeitos de emitir um sinal
-	victim.respawn.stomped.emit()
 	#victim.respawn.emit_signal("stomped") 
+	victim.respawn.stomped.emit()
 	
-	get_parent().velocity.y = -200
+	player.velocity.y = -200
+	
+	controller.update_score(
+		controller.controller_number, victim.get_parent().controller_number)
 
 
 # TODO função para jogar itens, provavelmente terá que passar um argumento item.
@@ -53,7 +58,7 @@ func push_back() -> void:
 	if enemy_pushed is Player:
 		enemy_push = enemy_pushed
 		knockback_timer(enemy_pushed)
-		enemy_pushed.velocity.x = (pushback_x * get_parent().direction)
+		enemy_pushed.velocity.x = (pushback_x * player.direction)
 		enemy_pushed.velocity.y = pushback_y
 
 

@@ -23,11 +23,11 @@ class_name Player
 @export var jump_force: float = 150
 
 # Variáveis para os inputs de controle
-@export_category("Controls")
-@export var move_right: String = "move_right"
-@export var move_left: String = "move_left"
-@export var move_fire: String = "fire"
-@export var move_jump: String = "jump"
+#@export_category("Controls")
+#@export var move_right: String = "move_right"
+#@export var move_left: String = "move_left"
+#@export var move_fire: String = "fire"
+#@export var move_jump: String = "jump"
 
 
 # Condições para pulo.
@@ -40,6 +40,14 @@ var default_speed: float = speed
 var direction: float = 0
 var fire_pressed: bool = false
 var can_move: bool = true
+
+# Variáveis de input. Passados pelo Controller
+@onready var move_left: String = get_parent().left
+@onready var move_right: String = get_parent().right
+@onready var move_jump: String = get_parent().jump
+@onready var move_fire: String = get_parent().fire
+
+@onready var controller_number: int = get_parent().controller_number
 
 
 # Physics, função de atualização a cada frame.

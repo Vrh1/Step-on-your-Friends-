@@ -15,7 +15,7 @@ class_name PlayerAnimations
 
 
 # Chamada por frame
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	verify_direction(player.direction)
 	if player.is_on_floor():
 		check_moving(player.velocity.x)

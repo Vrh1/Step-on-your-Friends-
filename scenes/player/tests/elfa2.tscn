@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://vq5tl7801wme"]
-
-[ext_resource type="PackedScene" uid="uid://do68t7pxqy4a0" path="res://scenes/player/player.tscn" id="1_3rmsg"]
-[ext_resource type="Texture2D" uid="uid://cu1pv38xgetuk" path="res://assets/sprites/players/elfa/Elfa2-Sheet.png" id="2_tx3mr"]
-
-[node name="Player" instance=ExtResource("1_3rmsg")]
-
-[node name="Sprite" parent="." index="0"]
-texture = ExtResource("2_tx3mr")

@@ -12,7 +12,6 @@ signal stomped
 
 func _ready() -> void:
 	stomped.connect(die)
-	pass
 
 func _physics_process(_delta) -> void:
 	pass
