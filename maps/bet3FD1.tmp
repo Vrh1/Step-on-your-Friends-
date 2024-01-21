@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dw2hecv12jidg"]
+
+[ext_resource type="PackedScene" uid="uid://ba7y7j61np73k" path="res://maps/tiles/beta_tile_map.tscn" id="1_gfyad"]
+[ext_resource type="Script" path="res://scripts/tests/logic_test/beta_logic.gd" id="1_oee3u"]
+[ext_resource type="Script" path="res://scripts/controller/player_controller.gd" id="2_u1otk"]
+[ext_resource type="PackedScene" uid="uid://do68t7pxqy4a0" path="res://scenes/player/player.tscn" id="3_p1xti"]
+
+[node name="BetaMap" type="Node2D" groups=["logica"]]
+script = ExtResource("1_oee3u")
+
+[node name="BetaTileMap" parent="." instance=ExtResource("1_gfyad")]
+layer_0/tile_data = PackedInt32Array(393216, 327680, 1, 393217, 65536, 3, 393218, 65536, 3, 393219, 65536, 3, 393220, 65536, 3, 393221, 65536, 2, 393222, 65536, 2, 393223, 65536, 2, 393224, 65536, 3, 393225, 65536, 2, 393226, 65536, 2, 393227, 65536, 2, 327685, 0, 0, 327686, 65536, 0, 327687, 131072, 0, 327691, 65536, 1, 327690, 65536, 1, 327689, 0, 1, 262154, 65536, 0, 262155, 65536, 0, 262153, 262144, 0, 327680, 131072, 0, 458751, 262144, 1, 393215, 262144, 0, 327679, 196608, 1, 262143, 196608, 1, 196607, 196608, 1, 131071, 196608, 1, 65535, 196608, 1, 393228, 131072, 2, 327692, 131072, 1, 262156, 131072, 0, 196620, 196608, 1, 131084, 196608, 1, 65548, 196608, 1, 12, 196608, 1, -65524, 196608, 0, -1, 196608, 0, -65536, 65536, 3, -65535, 65536, 3, -65534, 65536, 3, -65533, 65536, 3, -65532, 65536, 3, -65531, 65536, 3, -65530, 65536, 3, -65529, 65536, 3, -65528, 65536, 3, -65527, 65536, 3, -65526, 65536, 3, -65525, 65536, 3)
+
+[node name="Controller 1" type="Node2D" parent="."]
+script = ExtResource("2_u1otk")
+left = "p1_move_left"
+right = "p1_move_right"
+fire = "p1_fire"
+jump = "p1_jump"
+controller_number = 1
+
+[node name="Player" parent="Controller 1" instance=ExtResource("3_p1xti")]
+position = Vector2(18, 97)
+
+[node name="Controller 2" type="Node2D" parent="."]
+script = ExtResource("2_u1otk")
+left = "p2_move_left"
+right = "p2_move_right"
+fire = "p2_fire"
+jump = "p2_jump"
+controller_number = 2
+
+[node name="Player" parent="Controller 2" instance=ExtResource("3_p1xti")]
+position = Vector2(242, 121)
+
+[node name="Controller 3" type="Node2D" parent="."]
+
+[node name="Controller 4" type="Node2D" parent="."]

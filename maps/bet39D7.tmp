@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw2hecv12jidg"]
+
+[ext_resource type="PackedScene" uid="uid://ba7y7j61np73k" path="res://maps/tiles/beta_tile_map.tscn" id="1_gfyad"]
+[ext_resource type="PackedScene" uid="uid://do68t7pxqy4a0" path="res://scenes/player/player.tscn" id="2_wxk32"]
+
+[node name="BetaMap" type="Node2D"]
+
+[node name="BetaTileMap" parent="." instance=ExtResource("1_gfyad")]
+layer_0/tile_data = PackedInt32Array(393216, 0, 3, 393217, 65536, 3, 393218, 65536, 3, 393219, 65536, 3, 393220, 65536, 3, 393221, 65536, 2, 393222, 65536, 2, 393223, 65536, 2, 393224, 65536, 3, 393225, 65536, 2, 393226, 65536, 2, 393227, 131072, 2, 327685, 0, 0, 327686, 65536, 0, 327687, 131072, 0, 327691, 131072, 1, 327690, 65536, 1, 327689, 0, 1, 262154, 65536, 0, 262155, 131072, 0, 262153, 262144, 0)
+
+[node name="Player" parent="." instance=ExtResource("2_wxk32")]
+position = Vector2(32, 183)
