@@ -22,13 +22,8 @@ class_name Player
 @export var max_jump_timer: float = 0
 @export var jump_force: float = 150
 
-# Variáveis para os inputs de controle
-#@export_category("Controls")
-#@export var move_right: String = "move_right"
-#@export var move_left: String = "move_left"
-#@export var move_fire: String = "fire"
-#@export var move_jump: String = "jump"
-
+# Controller
+@onready var controller: ControllerPlayer = get_parent()
 
 # Condições para pulo.
 var is_jumping: bool = false
@@ -37,9 +32,11 @@ var can_jump: bool = false
 
 # Variáveis para auxiliar verificações
 var default_speed: float = speed
-var direction: float = 0
-var fire_pressed: bool = false
+var direction: float = 1
 var can_move: bool = true
+var fire_pressed: bool = false
+var can_throw: bool = true
+var pushed: bool = false
 
 # Variáveis de input. Passados pelo Controller
 @onready var move_left: String = get_parent().left
@@ -65,12 +62,18 @@ func apply_gravity(delta) -> void:
 
 # Função para a movimentação horizontal do player
 func move(delta) -> void:
-	if can_move:
-		var direction: float = Input.get_axis(move_left, move_right)
-		velocity.x = speed * direction
+	if can_move :
+		var mdirection: float = Input.get_axis(move_left, move_right)
+		if mdirection != 0:
+			direction = mdirection
+		velocity.x = speed * mdirection
 		check_fire_pressed()
 		jump(delta)
-		self.direction = direction
+		return
+	elif pushed:
+		return
+	else:
+		velocity.x = 0
 
 
 # Função para os pulos do player
@@ -97,8 +100,14 @@ func jump(delta) -> void:
 func check_fire_pressed() -> void:
 	if Input.is_action_pressed(move_fire):
 		fire_pressed = true
+		if can_throw:
+			attacks.throw_item()
+			can_throw = false
 		if is_on_floor():
 			speed = max_speed
+	elif Input.is_action_just_released(move_fire):
+		can_throw = true
 	else:
 		if is_on_floor():
 			speed = default_speed
+		fire_pressed = false

@@ -1,0 +1,81 @@
+[gd_scene load_steps=10 format=3 uid="uid://ba4ahjyykscaj"]
+
+[ext_resource type="Texture2D" uid="uid://bfe3enk5rxcga" path="res://assets/sprites/items/Boomerang-Sheet.png" id="1_fv3g1"]
+[ext_resource type="Script" path="res://scenes/items/boomerang.gd" id="1_w3bw0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07iqq"]
+atlas = ExtResource("1_fv3g1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jv5fx"]
+atlas = ExtResource("1_fv3g1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6378s"]
+atlas = ExtResource("1_fv3g1")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_btuco"]
+atlas = ExtResource("1_fv3g1")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_052nl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07iqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jv5fx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6378s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_btuco")
+}],
+"loop": true,
+"name": &"loop",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d8co4"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kv8rl"]
+radius = 7.0
+
+[node name="Boomerang" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_w3bw0")
+brake = 4.0
+
+[node name="AnimSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_052nl")
+animation = &"loop"
+frame_progress = 0.0340441
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_d8co4")
+
+[node name="GoingTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="FreeTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_kv8rl")
+
+[connection signal="body_entered" from="HitBox" to="." method="on_hit"]

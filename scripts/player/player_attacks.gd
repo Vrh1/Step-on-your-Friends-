@@ -1,6 +1,8 @@
 extends Node
 class_name PlayerAttacks
 
+@export var player: Player = null
+
 @export_category("Foots")
 @export var foots: Node2D = null
 
@@ -9,16 +11,25 @@ class_name PlayerAttacks
 @export var pushback_x: float = 50
 @export var pushback_y: float = -50
 
+@export_category("ItemSpawnPosition")
+@export var item_spawn_position: Marker2D = null
+
 @onready var knockback_temp: Timer = get_node("Knockback Timer")
-@onready var player: Player = get_parent()
+@onready var item_timer_cooldown: Timer = get_node("ItemTimerCoolDown")
 @onready var controller: ControllerPlayer = player.get_parent()
 
 var enemy_push: Player = null
+var boomerang: PackedScene = preload("res://scenes/items/boomerang.tscn")
+
+var have_item: bool = true
+var can_throw: bool = true
 
 
 func _ready() -> void:
 	knockback_temp.wait_time = 0.3
 	knockback_temp.timeout.connect(knockback_timeout)
+	item_timer_cooldown.wait_time = 1
+	item_timer_cooldown.timeout.connect(cooldown)
 
 
 # Update
@@ -49,23 +60,39 @@ func stomp(victim: Player) -> void:
 
 # TODO função para jogar itens, provavelmente terá que passar um argumento item.
 func throw_item() -> void:
-	pass
+	if have_item && can_throw:
+		var item = boomerang.instantiate()
+		item.player_launcher = player.controller_number
+		item.position = item_spawn_position.global_position
+		item.direction = player.direction
+		add_child(item)
+		can_throw = false
+		item_timer_cooldown.start()
 
 
 # Função de empurrar o inimigo.
 func push_back() -> void:
 	var enemy_pushed: Player = push_raycast.get_collider()
-	if enemy_pushed is Player:
+	if enemy_pushed == null:
+		return
+	if player.direction != enemy_pushed.direction:
 		enemy_push = enemy_pushed
-		knockback_timer(enemy_pushed)
-		enemy_pushed.velocity.x = (pushback_x * player.direction)
-		enemy_pushed.velocity.y = pushback_y
-
-
-func knockback_timer(enemy: Player) -> void:
-	enemy.can_move = false
-	knockback_temp.start()
+		enemy_pushed.can_move = false
+		enemy_pushed.pushed = true
+		knockback_temp.start()
+		player.velocity = Vector2(pushback_x * player.direction * -1 , pushback_y)
+	elif player.direction == enemy_pushed.direction:
+		enemy_push = enemy_pushed
+		enemy_pushed.can_move = false
+		knockback_temp.start()
+		enemy_pushed.velocity = Vector2(pushback_x * player.direction, pushback_y)
 
 
 func knockback_timeout() -> void:
 	enemy_push.can_move = true
+	enemy_push.pushed = false
+	enemy_push = null
+
+
+func cooldown() -> void:
+	can_throw = true

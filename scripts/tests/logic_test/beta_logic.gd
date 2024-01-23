@@ -13,7 +13,7 @@ var player4_deaths: int = 0
 
 
 func _process(_delta: float) -> void:
-	print(str(player1_kills) + " a " + str(player2_kills))
+	#print(str(player1_kills) + " a " + str(player2_kills))
 	pass
 
 

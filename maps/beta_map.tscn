@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dw2hecv12jidg"]
+[gd_scene load_steps=6 format=3 uid="uid://dw2hecv12jidg"]
 
 [ext_resource type="PackedScene" uid="uid://ba7y7j61np73k" path="res://maps/tiles/beta_tile_map.tscn" id="1_gfyad"]
 [ext_resource type="Script" path="res://scripts/tests/logic_test/beta_logic.gd" id="1_oee3u"]
 [ext_resource type="Script" path="res://scripts/controller/player_controller.gd" id="2_u1otk"]
 [ext_resource type="PackedScene" uid="uid://do68t7pxqy4a0" path="res://scenes/player/player.tscn" id="3_p1xti"]
+[ext_resource type="PackedScene" uid="uid://c7wix5gufr27o" path="res://scenes/items/boxItems/box_item.tscn" id="5_otx35"]
 
 [node name="BetaMap" type="Node2D" groups=["logica"]]
 script = ExtResource("1_oee3u")
@@ -20,7 +21,7 @@ jump = "p1_jump"
 controller_number = 1
 
 [node name="Player" parent="Controller 1" instance=ExtResource("3_p1xti")]
-position = Vector2(18, 97)
+position = Vector2(211, 93)
 
 [node name="Controller 2" type="Node2D" parent="."]
 script = ExtResource("2_u1otk")
@@ -31,8 +32,11 @@ jump = "p2_jump"
 controller_number = 2
 
 [node name="Player" parent="Controller 2" instance=ExtResource("3_p1xti")]
-position = Vector2(242, 121)
+position = Vector2(14, 111)
 
 [node name="Controller 3" type="Node2D" parent="."]
 
 [node name="Controller 4" type="Node2D" parent="."]
+
+[node name="BoxItem" parent="." instance=ExtResource("5_otx35")]
+position = Vector2(115, 133)

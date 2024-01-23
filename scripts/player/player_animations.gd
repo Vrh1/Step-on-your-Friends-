@@ -4,12 +4,12 @@ class_name PlayerAnimations
 # Objeto player
 @export_category("Player")
 @export var player: Player = null
+@export var item_spawn_local: Marker2D = null
 
 # Objeto AnimationPlayer e Sprite2D
 @export_category("Animations")
 @export var animator: AnimationPlayer = null
 @export var sprite: Sprite2D = null
-
 @export_category("RayCasts")
 @export var push_raycast: RayCast2D = null
 
@@ -28,9 +28,11 @@ func verify_direction(direction: float) -> void:
 	if direction > 0:
 		sprite.flip_h = false
 		push_raycast.rotation_degrees = 0
+		item_spawn_local.position.x = 7.5
 	if direction < 0:
 		sprite.flip_h = true
 		push_raycast.rotation_degrees = 180
+		item_spawn_local.position.x = -7.5
 	
 
 
