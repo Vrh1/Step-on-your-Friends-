@@ -1,0 +1,212 @@
+[gd_scene load_steps=14 format=3 uid="uid://do68t7pxqy4a0"]
+
+[ext_resource type="Texture2D" uid="uid://36qnngg55jwu" path="res://assets/sprites/players/elfa/Elfa-Sheet.png" id="1_0j2a7"]
+[ext_resource type="Script" path="res://scripts/player/player_moviment.gd" id="1_pqrko"]
+[ext_resource type="Script" path="res://scripts/player/player_animations.gd" id="3_nssa8"]
+[ext_resource type="Script" path="res://scripts/player/player_attacks.gd" id="4_oun7w"]
+[ext_resource type="Script" path="res://scripts/player/player_respawn.gd" id="4_xtmy4"]
+
+[sub_resource type="Animation" id="Animation_lqd7a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animator:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_dlqwy"]
+resource_name = "dead"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21]
+}
+
+[sub_resource type="Animation" id="Animation_sx4lp"]
+resource_name = "fall"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_ok5dl"]
+resource_name = "idle"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 2, 1, 0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animator:speed_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_r0esq"]
+resource_name = "jump"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_st28y"]
+resource_name = "walk"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h5w22"]
+_data = {
+"RESET": SubResource("Animation_lqd7a"),
+"dead": SubResource("Animation_dlqwy"),
+"fall": SubResource("Animation_sx4lp"),
+"idle": SubResource("Animation_ok5dl"),
+"jump": SubResource("Animation_r0esq"),
+"walk": SubResource("Animation_st28y")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqci6"]
+size = Vector2(12, 16)
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("animations", "attacks", "respawn", "collision")]
+scale = Vector2(1.2, 1.2)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_pqrko")
+animations = NodePath("Animations")
+attacks = NodePath("Attacks")
+respawn = NodePath("Respawn")
+collision = NodePath("Collision")
+max_jump_timer = 0.3
+jump_force = 200.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_0j2a7")
+hframes = 5
+vframes = 5
+
+[node name="Animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_h5w22")
+}
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qqci6")
+
+[node name="RayCasts" type="Node2D" parent="."]
+
+[node name="Foots" type="Node2D" parent="RayCasts"]
+
+[node name="Foot2" type="RayCast2D" parent="RayCasts/Foots"]
+position = Vector2(-5, 0)
+target_position = Vector2(0, 8.33333)
+collision_mask = 2
+
+[node name="Foot" type="RayCast2D" parent="RayCasts/Foots"]
+position = Vector2(5, 0)
+target_position = Vector2(0, 8.33333)
+collision_mask = 2
+
+[node name="Push" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(6.66667, 0)
+collision_mask = 2
+
+[node name="Animations" type="Node" parent="." node_paths=PackedStringArray("player", "animator", "sprite", "push_raycast")]
+script = ExtResource("3_nssa8")
+player = NodePath("..")
+animator = NodePath("../Animator")
+sprite = NodePath("../Sprite")
+push_raycast = NodePath("../RayCasts/Push")
+
+[node name="Attacks" type="Node" parent="." node_paths=PackedStringArray("foots", "push_raycast")]
+script = ExtResource("4_oun7w")
+foots = NodePath("../RayCasts/Foots")
+push_raycast = NodePath("../RayCasts/Push")
+pushback_x = 150.0
+pushback_y = -100.0
+
+[node name="Knockback Timer" type="Timer" parent="Attacks"]
+one_shot = true
+
+[node name="Respawn" type="Node" parent="." node_paths=PackedStringArray("parent", "animations", "raycasts")]
+script = ExtResource("4_xtmy4")
+parent = NodePath("..")
+animations = NodePath("../Animations")
+raycasts = NodePath("../RayCasts")
+
+[node name="Respawn Timer" type="Timer" parent="Respawn"]
+wait_time = 5.0
+one_shot = true
