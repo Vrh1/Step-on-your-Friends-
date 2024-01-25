@@ -112,8 +112,8 @@ shape = SubResource("RectangleShape2D_6ypsx")
 
 [node name="AnimSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0uigy")
-animation = &"NoItem"
-frame_progress = 0.0425389
+animation = &"Item"
+frame_progress = 0.334172
 
 [node name="Raycasts" type="Node2D" parent="."]
 

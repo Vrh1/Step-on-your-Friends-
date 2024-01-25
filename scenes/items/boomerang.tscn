@@ -1,64 +1,73 @@
-[gd_scene load_steps=10 format=3 uid="uid://ba4ahjyykscaj"]
+[gd_scene load_steps=10 format=3 uid="uid://dikdbr1jlng2"]
 
 [ext_resource type="Texture2D" uid="uid://bfe3enk5rxcga" path="res://assets/sprites/items/Boomerang-Sheet.png" id="1_fv3g1"]
-[ext_resource type="Script" path="res://scenes/items/boomerang.gd" id="1_w3bw0"]
+[ext_resource type="Script" path="res://scenes/items/boomerang.gd" id="1_ujonp"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_07iqq"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s0q8l"]
+size = Vector2(13, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gwy3"]
 atlas = ExtResource("1_fv3g1")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jv5fx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxae8"]
 atlas = ExtResource("1_fv3g1")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6378s"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_sn27k"]
 atlas = ExtResource("1_fv3g1")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_btuco"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jxd2"]
 atlas = ExtResource("1_fv3g1")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_052nl"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_blsai"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_07iqq")
+"texture": SubResource("AtlasTexture_4gwy3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jv5fx")
+"texture": SubResource("AtlasTexture_sxae8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6378s")
+"texture": SubResource("AtlasTexture_sn27k")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_btuco")
+"texture": SubResource("AtlasTexture_3jxd2")
 }],
 "loop": true,
 "name": &"loop",
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_d8co4"]
-radius = 7.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_kv8rl"]
-radius = 7.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_maxy6"]
+radius = 8.0
 
 [node name="Boomerang" type="CharacterBody2D"]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 0
-script = ExtResource("1_w3bw0")
-brake = 4.0
+script = ExtResource("1_ujonp")
+upping = 60.0
+brake = 10.0
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_s0q8l")
 
 [node name="AnimSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_052nl")
+sprite_frames = SubResource("SpriteFrames_blsai")
 animation = &"loop"
-frame_progress = 0.0340441
+frame_progress = 0.523627
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
-shape = SubResource("CircleShape2D_d8co4")
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="HitboxCollision" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_maxy6")
 
 [node name="GoingTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -69,13 +78,3 @@ autostart = true
 wait_time = 5.0
 one_shot = true
 autostart = true
-
-[node name="HitBox" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(0, -1)
-shape = SubResource("CircleShape2D_kv8rl")
-
-[connection signal="body_entered" from="HitBox" to="." method="on_hit"]

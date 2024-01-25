@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bk27dax4077la"]
+
+[ext_resource type="Texture2D" uid="uid://cwb1nnldex125" path="res://assets/sprites/items/boxitem/Boomerang_item.png" id="1_ey8fl"]
+[ext_resource type="Script" path="res://scripts/items/box_item/item.gd" id="1_eyxy1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l13l0"]
+size = Vector2(12, 11)
+
+[node name="Item" type="Area2D"]
+script = ExtResource("1_eyxy1")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_ey8fl")
+
+[node name="Detection" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_l13l0")

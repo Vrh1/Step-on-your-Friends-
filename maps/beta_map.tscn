@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dw2hecv12jidg"]
+[gd_scene load_steps=7 format=3 uid="uid://dw2hecv12jidg"]
 
 [ext_resource type="PackedScene" uid="uid://ba7y7j61np73k" path="res://maps/tiles/beta_tile_map.tscn" id="1_gfyad"]
 [ext_resource type="Script" path="res://scripts/tests/logic_test/beta_logic.gd" id="1_oee3u"]
 [ext_resource type="Script" path="res://scripts/controller/player_controller.gd" id="2_u1otk"]
 [ext_resource type="PackedScene" uid="uid://do68t7pxqy4a0" path="res://scenes/player/player.tscn" id="3_p1xti"]
 [ext_resource type="PackedScene" uid="uid://c7wix5gufr27o" path="res://scenes/items/boxItems/box_item.tscn" id="5_otx35"]
+[ext_resource type="PackedScene" uid="uid://bk27dax4077la" path="res://scenes/items/boxItems/item.tscn" id="6_b85rw"]
 
 [node name="BetaMap" type="Node2D" groups=["logica"]]
 script = ExtResource("1_oee3u")
@@ -40,3 +41,6 @@ position = Vector2(14, 111)
 
 [node name="BoxItem" parent="." instance=ExtResource("5_otx35")]
 position = Vector2(115, 133)
+
+[node name="Item" parent="." instance=ExtResource("6_b85rw")]
+position = Vector2(115, 120)

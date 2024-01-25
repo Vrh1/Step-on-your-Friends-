@@ -14,7 +14,7 @@ var is_backing: bool = false
 var is_upping: bool = false
 
 var direction: float = 1
-var player_launcher: int = 0
+var player_launcher: int = 0 
 
 
 #func _init(player_direction: float) -> void:
@@ -22,10 +22,12 @@ var player_launcher: int = 0
 
 # os Timers estão com autostart no próprio node
 func _ready() -> void:
+	hitbox.set_monitoring(true) # habilita o monitoramento da hitbox.
 	animSprite.play("loop")
 	is_backing = false
 	going_timer.timeout.connect(going_timeout)
 	free_timer.timeout.connect(on_maxtimeout)
+	hitbox.body_entered.connect(on_hit)
 	going_timer.start(0.5)
 	free_timer.start(5)
 
@@ -66,7 +68,12 @@ func on_maxtimeout() -> void:
 	queue_free()
 
 
-func on_hit(body: Player):
+# Detectação de colisão com player.
+func on_hit(body: Player) -> void:
 	if player_launcher != body.controller_number:
 		body.respawn.killed_by_item.emit()
 		body.controller.update_score(player_launcher, body.controller_number)
+
+
+func set_player_launcher(param: int) -> void:
+	player_launcher = param

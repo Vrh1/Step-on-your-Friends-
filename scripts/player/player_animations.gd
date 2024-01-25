@@ -61,3 +61,7 @@ func check_moving(velocity: float) -> void:
 # Animar a morte. Press F
 func dieing() -> void:
 	animator.play("dead")
+
+
+func dieing_byitem() -> void:
+	animator.play("die_by_item")

@@ -14,6 +14,7 @@ signal killed_by_item
 func _ready() -> void:
 	stomped.connect(die)
 	killed_by_item.connect(by_item)
+	respawn_timer.timeout.connect(spawn)
 
 func _physics_process(_delta) -> void:
 	pass
@@ -64,9 +65,8 @@ func by_item() -> void:
 			for j in i.get_children():
 				j.enabled = false
 	respawn_timer.start(5)
-	respawn_timer.timeout.connect(spawn)
 
 
 func change_safe_position() -> void:
 	parent.set_physics_process(false)
-	parent.global_position = Vector2(0, -50)
+	parent.set_global_position(Vector2(0, -50))

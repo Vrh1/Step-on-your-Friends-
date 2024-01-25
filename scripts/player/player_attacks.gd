@@ -58,12 +58,12 @@ func stomp(victim: Player) -> void:
 		controller.controller_number, victim.get_parent().controller_number)
 
 
-# TODO função para jogar itens, provavelmente terá que passar um argumento item.
+# função para jogar itens, provavelmente terá que passar um argumento item.
 func throw_item() -> void:
 	if have_item && can_throw:
 		var item = boomerang.instantiate()
-		item.player_launcher = player.controller_number
-		item.position = item_spawn_position.global_position
+		item.set_player_launcher(player.controller_number)
+		item.set_global_position(item_spawn_position.global_position) 
 		item.direction = player.direction
 		add_child(item)
 		can_throw = false

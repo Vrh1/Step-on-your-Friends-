@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://do68t7pxqy4a0"]
+[gd_scene load_steps=15 format=3 uid="uid://do68t7pxqy4a0"]
 
 [ext_resource type="Texture2D" uid="uid://36qnngg55jwu" path="res://assets/sprites/players/elfa/Elfa-Sheet.png" id="1_0j2a7"]
 [ext_resource type="Script" path="res://scripts/player/player_moviment.gd" id="1_pqrko"]
@@ -62,6 +62,9 @@ tracks/1/keys = {
 "method": &"change_safe_position"
 }]
 }
+
+[sub_resource type="Animation" id="Animation_s4ol1"]
+resource_name = "die_by_item"
 
 [sub_resource type="Animation" id="Animation_sx4lp"]
 resource_name = "fall"
@@ -146,6 +149,7 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_lqd7a"),
 "dead": SubResource("Animation_dlqwy"),
+"die_by_item": SubResource("Animation_s4ol1"),
 "fall": SubResource("Animation_sx4lp"),
 "idle": SubResource("Animation_ok5dl"),
 "jump": SubResource("Animation_r0esq"),
@@ -198,6 +202,9 @@ collision_mask = 2
 target_position = Vector2(6.66667, 0)
 collision_mask = 2
 
+[node name="ItemSpawnLocate" type="Marker2D" parent="."]
+position = Vector2(7.5, -1.66667)
+
 [node name="Animations" type="Node" parent="." node_paths=PackedStringArray("player", "item_spawn_local", "animator", "sprite", "push_raycast")]
 script = ExtResource("3_nssa8")
 player = NodePath("..")
@@ -231,6 +238,3 @@ raycasts = NodePath("../RayCasts")
 [node name="Respawn Timer" type="Timer" parent="Respawn"]
 wait_time = 5.0
 one_shot = true
-
-[node name="ItemSpawnLocate" type="Marker2D" parent="."]
-position = Vector2(7.5, -1.66667)
