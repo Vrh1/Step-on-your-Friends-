@@ -19,9 +19,9 @@ class_name PlayerAttacks
 @onready var controller: ControllerPlayer = player.get_parent()
 
 var enemy_push: Player = null
-var boomerang: PackedScene = preload("res://scenes/items/boomerang.tscn")
+var current_item: PackedScene = null
 
-var have_item: bool = true
+var have_item: bool = false
 var can_throw: bool = true
 
 
@@ -30,7 +30,6 @@ func _ready() -> void:
 	knockback_temp.timeout.connect(knockback_timeout)
 	item_timer_cooldown.wait_time = 1
 	item_timer_cooldown.timeout.connect(cooldown)
-
 
 # Update
 func _physics_process(_delta) -> void:
@@ -48,12 +47,8 @@ func check_under_foots() -> void:
 
 # Passar a morte e o objeto que morreu
 func stomp(victim: Player) -> void:
-	# 2 jeitos de emitir um sinal
-	#victim.respawn.emit_signal("stomped") 
 	victim.respawn.stomped.emit()
-	
 	player.velocity.y = -200
-	
 	controller.update_score(
 		controller.controller_number, victim.get_parent().controller_number)
 
@@ -61,11 +56,11 @@ func stomp(victim: Player) -> void:
 # função para jogar itens, provavelmente terá que passar um argumento item.
 func throw_item() -> void:
 	if have_item && can_throw:
-		var item = boomerang.instantiate()
-		item.set_player_launcher(player.controller_number)
-		item.set_global_position(item_spawn_position.global_position) 
-		item.direction = player.direction
-		add_child(item)
+		var throw = current_item.instantiate()
+		throw.set_player_launcher(player.controller_number)
+		throw.set_global_position(item_spawn_position.global_position) 
+		throw.direction = player.direction
+		get_tree().root.call_deferred("add_child", throw)
 		can_throw = false
 		item_timer_cooldown.start()
 
@@ -84,8 +79,9 @@ func push_back() -> void:
 	elif player.direction == enemy_pushed.direction:
 		enemy_push = enemy_pushed
 		enemy_pushed.can_move = false
+		enemy_pushed.pushed = true
 		knockback_temp.start()
-		enemy_pushed.velocity = Vector2(pushback_x * player.direction, pushback_y)
+		enemy_pushed.velocity = Vector2(pushback_x * enemy_pushed.direction , pushback_y)
 
 
 func knockback_timeout() -> void:
@@ -94,5 +90,6 @@ func knockback_timeout() -> void:
 	enemy_push = null
 
 
+# cooldown para lançar outro item.
 func cooldown() -> void:
 	can_throw = true

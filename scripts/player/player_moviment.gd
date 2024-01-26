@@ -62,7 +62,7 @@ func apply_gravity(delta) -> void:
 
 # Função para a movimentação horizontal do player
 func move(delta) -> void:
-	if can_move :
+	if can_move:
 		var mdirection: float = Input.get_axis(move_left, move_right)
 		if mdirection != 0:
 			direction = mdirection

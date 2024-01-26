@@ -87,7 +87,6 @@ shape = SubResource("RectangleShape2D_6ypsx")
 [node name="AnimSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0uigy")
 animation = &"NoItem"
-frame_progress = 0.697109
 script = ExtResource("3_h612m")
 
 [node name="Raycasts" type="Node2D" parent="."]
@@ -105,4 +104,4 @@ collision_mask = 2
 [node name="Cooldown" type="Timer" parent="."]
 
 [node name="SpawnItemLocate" type="Marker2D" parent="."]
-position = Vector2(0, -13)
+position = Vector2(0, -14)

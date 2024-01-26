@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bk27dax4077la"]
 
 [ext_resource type="Script" path="res://scripts/items/box_item/item.gd" id="1_eyxy1"]
-[ext_resource type="Script" path="res://scripts/items/box_item/item_randomizer.gd" id="3_o4e81"]
+[ext_resource type="Script" path="res://scripts/items/box_item/item_references.gd" id="3_d7bay"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l13l0"]
 size = Vector2(12, 11)
@@ -18,6 +18,5 @@ script = ExtResource("1_eyxy1")
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_l13l0")
 
-[node name="Randomizer" type="Node" parent="." node_paths=PackedStringArray("texture")]
-script = ExtResource("3_o4e81")
-texture = NodePath("../Sprite")
+[node name="References" type="Node" parent="."]
+script = ExtResource("3_d7bay")

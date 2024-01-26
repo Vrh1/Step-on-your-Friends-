@@ -1,19 +1,24 @@
 extends Area2D
 class_name Item
 
-@export var item_list: Array = [
-	"Boomerang",
-]
-@export var ammo_list: Dictionary = {
-	"Boomerang": 5,
-}
+@onready var texture: Sprite2D = get_node("Sprite")
+@onready var randomizer: ItemRandomizer = get_node("Randomizer")
+
+var location: Vector2 = Vector2.ZERO
+var item: String = ""
 
 
 func _ready() -> void:
-	print(ammo_list[item_list[random_item()]])
+	set_monitoring(true)
+	body_entered.connect(catch_player)
 
 
-func random_item() -> int:
-	randomize()
-	var item: int = randi() % item_list.size()
-	return item
+func _physics_process(_delta) -> void:
+	if location != global_position:
+		translate(Vector2(0, -1))
+
+
+func catch_player(body: Player) -> void:
+	body.attacks.get_node("ItemRef").pass_item(randomizer.item_list[randomizer.index])
+	body.attacks.have_item = true
+	queue_free()

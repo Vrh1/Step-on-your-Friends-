@@ -33,7 +33,6 @@ func die() -> void:
 			for j in i.get_children():
 				j.enabled = false
 	respawn_timer.start(5)
-	respawn_timer.timeout.connect(spawn)
 
 
 # Respawnd do player, ativando todos os objetos novamente

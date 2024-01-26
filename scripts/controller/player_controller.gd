@@ -10,6 +10,9 @@ class_name ControllerPlayer
 @export_category("Controller")
 @export var controller_number: int = 0
 
+@onready var attacks: PlayerAttacks = get_node("Player/Attacks")
+
+
 func _ready() -> void:
 	pass
 

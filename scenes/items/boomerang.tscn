@@ -1,80 +1,76 @@
-[gd_scene load_steps=10 format=3 uid="uid://dikdbr1jlng2"]
+[gd_scene load_steps=10 format=3 uid="uid://bikemcj0anouq"]
 
-[ext_resource type="Texture2D" uid="uid://bfe3enk5rxcga" path="res://assets/sprites/items/Boomerang-Sheet.png" id="1_fv3g1"]
-[ext_resource type="Script" path="res://scenes/items/boomerang.gd" id="1_ujonp"]
+[ext_resource type="Script" path="res://scripts/items/boomerang.gd" id="1_smy5m"]
+[ext_resource type="Texture2D" uid="uid://bfe3enk5rxcga" path="res://assets/sprites/items/Boomerang-Sheet.png" id="1_wlu3f"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s0q8l"]
-size = Vector2(13, 13)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_anwtc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4gwy3"]
-atlas = ExtResource("1_fv3g1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_1le4x"]
+atlas = ExtResource("1_wlu3f")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sxae8"]
-atlas = ExtResource("1_fv3g1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_046yn"]
+atlas = ExtResource("1_wlu3f")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sn27k"]
-atlas = ExtResource("1_fv3g1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_4lox5"]
+atlas = ExtResource("1_wlu3f")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3jxd2"]
-atlas = ExtResource("1_fv3g1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8p15"]
+atlas = ExtResource("1_wlu3f")
 region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_blsai"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_eys00"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4gwy3")
+"texture": SubResource("AtlasTexture_1le4x")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sxae8")
+"texture": SubResource("AtlasTexture_046yn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sn27k")
+"texture": SubResource("AtlasTexture_4lox5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3jxd2")
+"texture": SubResource("AtlasTexture_n8p15")
 }],
 "loop": true,
 "name": &"loop",
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_maxy6"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wwqe"]
 radius = 8.0
 
 [node name="Boomerang" type="CharacterBody2D"]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("1_ujonp")
-upping = 60.0
+script = ExtResource("1_smy5m")
+upping = 70.0
 brake = 10.0
 
-[node name="Collision" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(0.5, 0.5)
-shape = SubResource("RectangleShape2D_s0q8l")
+shape = SubResource("RectangleShape2D_anwtc")
 
 [node name="AnimSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_blsai")
+sprite_frames = SubResource("SpriteFrames_eys00")
 animation = &"loop"
-frame_progress = 0.523627
+frame_progress = 0.511485
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 2
 
-[node name="HitboxCollision" type="CollisionShape2D" parent="HitBox"]
-shape = SubResource("CircleShape2D_maxy6")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_1wwqe")
 
 [node name="GoingTimer" type="Timer" parent="."]
-wait_time = 0.5
 one_shot = true
 autostart = true
 
 [node name="FreeTimer" type="Timer" parent="."]
-wait_time = 5.0
 one_shot = true
 autostart = true
