@@ -17,6 +17,7 @@ class_name PlayerAttacks
 @onready var knockback_temp: Timer = get_node("Knockback Timer")
 @onready var item_timer_cooldown: Timer = get_node("ItemTimerCoolDown")
 @onready var controller: ControllerPlayer = player.get_parent()
+@onready var item_ref: ItemsRef = get_node("ItemRef")
 
 var enemy_push: Player = null
 var current_item: PackedScene = null
@@ -57,12 +58,13 @@ func stomp(victim: Player) -> void:
 func throw_item() -> void:
 	if have_item && can_throw:
 		var throw = current_item.instantiate()
-		throw.set_player_launcher(player.controller_number)
+		throw.set_player_launcher(controller.controller_number)
 		throw.set_global_position(item_spawn_position.global_position) 
 		throw.direction = player.direction
 		get_tree().root.call_deferred("add_child", throw)
 		can_throw = false
 		item_timer_cooldown.start()
+		item_ref.item_treatment()
 
 
 # Função de empurrar o inimigo.
@@ -82,8 +84,10 @@ func push_back() -> void:
 		enemy_pushed.pushed = true
 		knockback_temp.start()
 		enemy_pushed.velocity = Vector2(pushback_x * enemy_pushed.direction , pushback_y)
+		enemy_pushed.direction = -player.direction
 
 
+# Quando o tempo acabar o player volta aos estados normais após o knockback
 func knockback_timeout() -> void:
 	enemy_push.can_move = true
 	enemy_push.pushed = false

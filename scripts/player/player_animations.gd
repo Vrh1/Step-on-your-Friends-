@@ -63,5 +63,6 @@ func dieing() -> void:
 	animator.play("dead")
 
 
+# Animar a morte por item. F
 func dieing_byitem() -> void:
 	animator.play("die_by_item")

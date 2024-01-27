@@ -45,6 +45,7 @@ func going() -> void:
 	velocity.x = speed * direction
 
 
+# Temporizador, quando o tempo acabar o boomerangue começara a voltar
 func going_timeout() -> void:
 	is_backing = true
 	is_upping = true
@@ -75,5 +76,6 @@ func on_hit(body: Player) -> void:
 		body.controller.update_score(player_launcher, body.controller_number)
 
 
+# Seta quem foi o player que jogou
 func set_player_launcher(param: int) -> void:
 	player_launcher = param

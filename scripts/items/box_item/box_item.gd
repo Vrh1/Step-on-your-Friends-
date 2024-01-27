@@ -30,6 +30,7 @@ func _process(_delta) -> void:
 			anim_sprite.no_item()
 
 
+# Função executada quando o bloco for atingido.
 func on_hit() -> void:
 	var new_item = generic_item.instantiate()
 	new_item.global_position = global_position
@@ -39,10 +40,12 @@ func on_hit() -> void:
 	cooldown.start(20)
 
 
+# Temporizador, quando o tempo acabar o bloco entrará em estado de ITEM.
 func timeout_ready_item() -> void:
 	state = ITEM
 
 
+# Verifica se a cabeça do player está colidindo.
 func verify_player_head() -> void:
 	for raycast in raycasts.get_children():
 		if raycast.is_colliding():

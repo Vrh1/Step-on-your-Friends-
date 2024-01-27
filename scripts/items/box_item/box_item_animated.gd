@@ -4,10 +4,6 @@ class_name BoxItemAnimated
 @onready var box_item: BoxItem = get_parent()
 
 
-func _process(_delta) -> void:
-	pass
-
-
 func item() -> void:
 	play("Item")
 

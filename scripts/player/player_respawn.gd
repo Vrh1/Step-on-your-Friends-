@@ -16,10 +16,8 @@ func _ready() -> void:
 	killed_by_item.connect(by_item)
 	respawn_timer.timeout.connect(spawn)
 
-func _physics_process(_delta) -> void:
-	pass
 
-
+# Morte, desabilita todos os objetos de checagem do player.
 func die() -> void:
 	animations.set_physics_process(false)
 	animations.dieing()
@@ -52,6 +50,7 @@ func spawn() -> void:
 	parent.set_global_position(Vector2(30, 50))
 
 
+# Morte causada por item, a animação deve ser diferente
 func by_item() -> void:
 	animations.set_physics_process(false)
 	animations.dieing()
@@ -66,6 +65,7 @@ func by_item() -> void:
 	respawn_timer.start(5)
 
 
+# Desloca o player pra uma região segura fora do mapa para não causar erros de colisão.
 func change_safe_position() -> void:
 	parent.set_physics_process(false)
 	parent.set_global_position(Vector2(0, -50))

@@ -45,7 +45,7 @@ animations = [{
 radius = 8.0
 
 [node name="Boomerang" type="CharacterBody2D"]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_smy5m")
 upping = 70.0

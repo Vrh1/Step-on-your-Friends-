@@ -18,6 +18,8 @@ func _physics_process(_delta) -> void:
 		translate(Vector2(0, -1))
 
 
+# Quando o player entrar na área de colisão do item esta função é ativada.
+# Passa o item que o player pagou.
 func catch_player(body: Player) -> void:
 	body.attacks.get_node("ItemRef").pass_item(randomizer.item_list[randomizer.index])
 	body.attacks.have_item = true
